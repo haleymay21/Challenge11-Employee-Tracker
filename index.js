@@ -96,6 +96,58 @@ function viewRole() {
   });
 }
 
+function addEmployee() {
+  connection.query("select * from role", (err, res) => {
+    if (err) throw err;
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "firstName",
+          message: "What is the new employee's first name?",
+        },
+        {
+          type: "input",
+          name: "lastName",
+          message: "What is the new employee's last name?",
+        },
+        {
+          type: "list",
+          name: "title",
+          message: "What is the new employee's role",
+          choices: res.map((role) => role.title),
+        },
+      ])
+      .then((data) => {
+        let role = res.find((role) => role.title === data.title);
+        connection.query("insert into employee set ?", {
+          first_name: data.firstName,
+          last_name: data.lastName,
+          role_id: role.id,
+        });
+        questionsPrompt();
+      });
+  });
+}
 
+function addDepartment() {
+  connection.query("select * from department", (err, res) => {
+    if (err) throw err;
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "departmentName",
+          message: "What Department would you like to add?",
+        },
+      ])
+      .then((data) => {
+        connection.query("insert into department set ?", {
+          name: data.departmentName,
+        });
+        questionsPrompt();
+      });
+  });
+}
 
 questionsPrompt();
