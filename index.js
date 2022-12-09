@@ -65,7 +65,7 @@ function questionsPrompt() {
           addDepartment();
           break;
         case "ADD_ROLE":
-          addROLE();
+          addRole();
           break;
         default:
           quit();
@@ -145,6 +145,46 @@ function addDepartment() {
         connection.query("insert into department set ?", {
           name: data.departmentName,
         });
+        console.log(`added ${data.departmentName} to list of departments`);
+
+        questionsPrompt();
+      });
+  });
+}
+
+function addRole() {
+  connection.query("select * from department", (err, res) => {
+    if (err) throw err;
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "title",
+          message: "What is the title of this role?",
+        },
+        {
+          type: "input",
+          name: "salary",
+          message: "What is the salary of this role?",
+        },
+        {
+          type: "list",
+          name: "name",
+          message: "What department is this role in?",
+          choices: res.map((department) => department.name),
+        },
+      ])
+      .then((data) => {
+        let department = res.find(
+          (department) => department.name === data.name
+        );
+        connection.query("insert into role set ?", {
+          title: data.title,
+          salary: data.salary,
+          department_id: department.id,
+        });
+        console.log(`added ${data.title} to list of roles`);
+
         questionsPrompt();
       });
   });
