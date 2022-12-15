@@ -190,4 +190,43 @@ function addRole() {
   });
 }
 
+function updateEmployeeRole() {
+  connection.query("select * from employee", (err, employeeData) => {
+    if (err) throw err;
+    connection.query("select * from role", (err, roleData) => {
+      inquirer
+        .prompt([
+          {
+            type: "list",
+            name: "employee",
+            message: "Who is the employee you want to update?",
+            choices: employeeData.map((employee) => {
+              return {
+                name: employee.first_name + " " + employee.last_name,
+                value: employee.id,
+              };
+            }),
+          },
+          {
+            type: "list",
+            name: "role",
+            message: "What is the role you want to update?",
+            choices: roleData.map((role) => {
+              return { name: role.title, value: role.id };
+            }),
+          },
+        ])
+        .then((userAnswers) => {
+          connection.query(
+            "update employee set role_id = ? where id = ?",
+            [userAnswers.role, userAnswers.employee],
+            (err, roleData) => {
+              console.log("user updated!");
+              questionsPrompt();
+            }
+          );
+        });
+    });
+  });
+}
 questionsPrompt();
