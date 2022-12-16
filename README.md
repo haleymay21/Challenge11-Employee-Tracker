@@ -6,7 +6,7 @@ This is a management application for managing a company's departments, employees
 
 ### Links
 
-Video Link Showing Functionality is [here](./assets/Untitled_%20Dec%2015%2C%202022%203_17%20PM.webm)
+Video Link Showing Functionality is [here](./assets/employee-tracker-app-video.mp4)
 
 ### Screenshots
 
