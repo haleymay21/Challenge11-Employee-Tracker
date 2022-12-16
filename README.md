@@ -6,7 +6,7 @@ This is a management application for managing a company's departments, employees
 
 ### Links
 
-Video Link Showing Functionality is [here]()
+Video Link Showing Functionality is [here](file:///Users/haleytrumbo/Downloads/Untitled_%20Dec%2015,%202022%203_17%20PM.webm)
 
 ### Screenshots
 
