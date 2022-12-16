@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 const connection = require("./db/connection");
-// require("console.table");
 
+// init prompt for each choice /
 function questionsPrompt() {
   inquirer
     .prompt([
@@ -45,8 +45,8 @@ function questionsPrompt() {
           },
         ],
       },
-      // 'res' is an object that represents a reponse from a request. (AKA when the user selects a choice ('name:') the 'res' gives back the correct reponsee ('value:') ))
     ])
+    // switch case for each choice with corresponding functions //
     .then((res) => {
       let choice = res.choice;
       switch (choice) {
@@ -76,6 +76,8 @@ function questionsPrompt() {
       }
     });
 }
+
+// start of functions for each choice above, viewing a chosen table, adding to database, updating database, etc //
 function viewEmployees() {
   connection.query("select * from employee", (err, res) => {
     if (err) throw err;
@@ -233,7 +235,7 @@ function updateEmployeeRole() {
     });
   });
 }
-
+// function to quit application //
 function quit() {
   console.log("Goodbye!");
   process.exit();
