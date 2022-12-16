@@ -8,7 +8,8 @@ function questionsPrompt() {
       {
         type: "list",
         name: "choice",
-        message: "what would you like to do?",
+        message:
+          "WELCOME TO THE EMPLOYEE TRACKER // What would you like to do?",
         choices: [
           {
             name: "view all employees",
@@ -19,17 +20,12 @@ function questionsPrompt() {
             value: "VIEW_DEPARTMENTS",
           },
           {
-            name: "view all the employees by the role",
+            name: "view all roles",
             value: "VIEW_ROLE",
           },
           {
-            name: "add employee?",
+            name: "add an employee",
             value: "ADD_EMPLOYEE",
-          },
-          // add a department, add a role, add an employee, and update an employee role
-          {
-            name: "update an employee role?",
-            value: "UPDATE_EMPLOYEE_ROLE",
           },
           {
             name: "add a department",
@@ -38,6 +34,14 @@ function questionsPrompt() {
           {
             name: "add a role",
             value: "ADD_ROLE",
+          },
+          {
+            name: "update an employee role?",
+            value: "UPDATE_EMPLOYEE_ROLE",
+          },
+          {
+            name: "Quit",
+            value: "QUIT",
           },
         ],
       },
@@ -67,7 +71,7 @@ function questionsPrompt() {
         case "ADD_ROLE":
           addRole();
           break;
-        default:
+        case "QUIT":
           quit();
       }
     });
@@ -229,4 +233,10 @@ function updateEmployeeRole() {
     });
   });
 }
+
+function quit() {
+  console.log("Goodbye!");
+  process.exit();
+}
+
 questionsPrompt();
